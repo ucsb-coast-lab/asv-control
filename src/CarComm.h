@@ -1,6 +1,5 @@
 class CarComm {
 public:
-  CarComm() {
-    // TODO: Implement
-  }
-}
+  // TODO: Implement CarComm(int, int)
+  CarComm(int, int);
+};

@@ -40,9 +40,13 @@ struct Goals goals;
 void setup() {
   Serial.begin(115200);
 
+  // TODO: implement "RPiComm(HardwareSerial, int)"
   pRPi = new RPiComm(&Serial1, 115200);
+  // TODO: implement "GPSComm(HardwareSerial, int)"
   pGPS = new GPSComm(&Serial2, 9600);
+  // TODO: implement "IMUComm(int, int)"
   pIMU = new IMUComm(SDA, SCL);
+  // TODO: implement "CarComm(int, int)"
   pCar = new CarComm(ESC, STR);
 }
 
