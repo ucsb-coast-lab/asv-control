@@ -3,28 +3,27 @@
 
 class RPiComm {
 public:
-  RPiComm() {
-    ser = 0;
-    desiredRudder = 0;
-    desiredThrust = 0;
-  }
+  RPiComm(HardwareSerial*, int);
 
-  void attach(HardwareSerial*, int);
 
+  // TODO: Implement reading MOOS messages
   int getDesiredRudder();
   int getDesiredThrust();
 
-  void postAll(struct Position, struct Inertia);
-  void postNavLat(int);
-  void postNavLon(int);
-  void postNavX(int);
-  void postNavY(int);
-  void postNavSpeed(int);
-  void postNavHeading(int);
+  void postAll(Position, Momentum);
+
+  // TODO: Implement individual posts
+  // void postNavLat(int);
+  // void postNavLon(int);
+  // void postNavX(int);
+  // void postNavY(int);
+  // void postNavSpeed(int);
+  // void postNavHeading(int);
 
 private:
-  HardwareSerial* ser;
+  String RPiComm::appendChecksum(String msg);
 
+  HardwareSerial* ser;
   int desiredRudder;
   int desiredThrust;
 };

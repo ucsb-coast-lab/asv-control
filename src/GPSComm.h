@@ -15,4 +15,5 @@ private:
   // TODO: Refactor setModes()
   void setModes();
   Adafruit_GPS GPS;
+  Position position;
 };
