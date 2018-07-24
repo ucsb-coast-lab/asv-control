@@ -51,7 +51,10 @@ void setup() {
 }
 
 void loop() {
-  // TODO: implement "Position GPSComm::update()"
+  // TODO: test "Position GPSComm::update()"
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // TODO: !!! Speed and Heading are from GPS !!! Refactor accordingly
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   pos = pGPS->update();
   // TODO: implement "Momentum IMUComm::update()"
   ine = pIMU->update();

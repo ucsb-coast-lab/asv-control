@@ -8,6 +8,12 @@ RPiComm::RPiComm(HardwareSerial* s, int baud) {
   desiredThrust = 0;
 }
 
+Goals RPiComm::updateGoals() {
+  if(newMessage()) {
+
+  }
+}
+
 int RPiComm::getDesiredRudder() {
   return desiredRudder;
 }
@@ -20,8 +26,8 @@ void RPiComm::postAll(Position pos, Momentum mom) {
   String msg = "#N,T" + String(millis()) + \
     ",LAT" + String(pos.lat, 5) + \
     ",LON" + String(pos.lon, 5) + \
-    ",NAE" + String(toCoord(pos.x), 1) + \
-    ",NAN" + String(toCoord(pos.y), 1) + \
+    ",NAE" + String(toXCoord(pos.x), 1) + \
+    ",NAN" + String(toYCoord(pos.y), 1) + \
     ",VEL" + String(mom.speed) + \
     ",HDG" + String(mom.direction, 1);
 
@@ -38,9 +44,10 @@ String RPiComm::appendChecksum(String msg){
   return msg + "*" + String(sum, HEX) + "\n";
 }
 
-void RPiComm::postNavLat(int);
-void RPiComm::postNavLon(int);
-void RPiComm::postNavX(int);
-void RPiComm::postNavY(int);
-void RPiComm::postNavSpeed(int);
-void RPiComm::postNavHeading(int);
+
+// void RPiComm::postNavLat(int);
+// void RPiComm::postNavLon(int);
+// void RPiComm::postNavX(int);
+// void RPiComm::postNavY(int);
+// void RPiComm::postNavSpeed(int);
+// void RPiComm::postNavHeading(int);

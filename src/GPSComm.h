@@ -8,7 +8,7 @@ public:
   // TODO: Test GPSComm(HardwareSerial*, int)
   // TODO: Refactor GPSComm(HardwareSerial*, int)
   GPSComm(HardwareSerial*, int);
-  // TODO: implement update()
+  // TODO: Test update()
   Position update();
 
 private:

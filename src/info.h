@@ -14,5 +14,5 @@ struct Momentum {
 
 struct Goals {
   int thrust;
-  int heading;
+  int rudder;
 };

@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "info.h"
 
+// TODO: Abstract this
 class RPiComm {
 public:
   RPiComm(HardwareSerial*, int);
@@ -9,6 +10,7 @@ public:
   // TODO: Implement reading MOOS messages
   int getDesiredRudder();
   int getDesiredThrust();
+  Goals updateGoals();
 
   void postAll(Position, Momentum);
 
@@ -21,8 +23,12 @@ public:
   // void postNavHeading(int);
 
 private:
-  String RPiComm::appendChecksum(String msg);
+  String appendChecksum(String msg);
+  double toXCoord(double lon);
+  double toYCoord(double lat)
 
+  // TODO: Implement Parser class
+  // TODO: Add Parser object
   HardwareSerial* ser;
   int desiredRudder;
   int desiredThrust;
