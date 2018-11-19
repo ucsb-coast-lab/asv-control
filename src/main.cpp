@@ -55,6 +55,8 @@ void loop() {
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // TODO: !!! Speed and Heading are from GPS !!! Refactor accordingly
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //format send to MOOS:
+  //#N,T12345,LAT12.34567,LON12.34567,NAVE12.34,NAVN12.34,V1.23,H123.4,HDOP1.23*99
   pos = pGPS->update();
   // TODO: implement "Momentum IMUComm::update()"
   ine = pIMU->update();
