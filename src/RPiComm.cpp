@@ -1,17 +1,44 @@
 #include "RPiComm.h"
 
-RPiComm::RPiComm(HardwareSerial* s, int baud) {
-  ser = s;
-  s->begin(baud);
-
-  desiredRudder = 0;
-  desiredThrust = 0;
+RPiComm::RPiComm(HardwareSerial* s, int baud):
+  ser(s)
+{
+  this->ser->begin(baud);
 }
 
-Goals RPiComm::updateGoals() {
-  if(newMessage()) {
-
+char RPiComm::readChar()
+{
+  char c = 0;
+  if (ser->available()) {
+    c = ser->read();
+    if (c = '\n') {
+      currMessage[idx] = 0;
+      if (currMessage == buffA) {
+        currMessage = buffB;
+        lastMessage = buffA;
+      } else {
+        currMessage = buffA;
+        lastMessage = buffB;
+      }
+      idx = 0;
+      newMail = true;
+    }
+    currMessage[idx++] = c;
+    if (idx >= buflen)
+      idx = buflen - 1;
   }
+  return c;
+}
+
+bool RPiComm::isNewMail()
+{
+  return newMail;
+}
+
+char* RPiComm::newMail()
+{
+  newMail = false;
+  return lastMessage;
 }
 
 int RPiComm::getDesiredRudder() {

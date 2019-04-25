@@ -1,35 +1,35 @@
 #include "Arduino.h"
 #include "info.h"
 
-// TODO: Abstract this
 class RPiComm {
 public:
   RPiComm(HardwareSerial*, int);
 
-
-  // TODO: Implement reading MOOS messages
   int getDesiredRudder();
   int getDesiredThrust();
-  Goals updateGoals();
+  Goals currentGoals();
+
+  char readChar();
+  bool isNewMail();
+  char* newMail();
 
   void postAll(Position, Momentum);
-
-  // TODO: Implement individual posts
-  // void postNavLat(int);
-  // void postNavLon(int);
-  // void postNavX(int);
-  // void postNavY(int);
-  // void postNavSpeed(int);
-  // void postNavHeading(int);
 
 private:
   String appendChecksum(String msg);
   double toXCoord(double lon);
-  double toYCoord(double lat)
+  double toYCoord(double lat);
 
-  // TODO: Implement Parser class
-  // TODO: Add Parser object
+  static const int buflen = 120;
+
   HardwareSerial* ser;
+  int idx = 0;
+  char buffA[buflen] = {};
+  char buffB[buflen] = {};
+  char *lastMessage = buffA;
+  char *currMessage = buffB;
+  bool newMail = false;
+
   int desiredRudder;
   int desiredThrust;
 };

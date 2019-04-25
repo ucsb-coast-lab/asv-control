@@ -32,15 +32,10 @@ GPSComm* pGPS;
 IMUComm* pIMU;
 CarComm* pCar;
 
-// TODO: Check whether "struct" must be stated
-struct Position pos;
-struct Momentum mom;
-struct Goals goals;
-
 void setup() {
+  // Logging to computer
   Serial.begin(115200);
 
-  // TODO: implement "RPiComm(HardwareSerial, int)"
   pRPi = new RPiComm(&Serial1, 115200);
   // TODO: implement "GPSComm(HardwareSerial, int)"
   pGPS = new GPSComm(&Serial2, 9600);
@@ -48,7 +43,24 @@ void setup() {
   pIMU = new IMUComm(SDA, SCL);
   // TODO: implement "CarComm(int, int)"
   pCar = new CarComm(ESC, STR);
+
+  delay(100);
+
+  // Set up interrupts on Timer 0
+  OCR0A = 0xAF;
+  TIMSK0 |= _BV(OCR0A);
 }
+
+SIGNAL(TIMER0_COMPA_vect) {
+  // Interrupt is called once a millisecond,
+  // looks for new serial data, and stores it
+  char c = pRPi->readChar();
+  //char g = GPS.read();
+}
+
+Position pos;
+Momentum mom;
+Goals goals;
 
 void loop() {
   // TODO: test "Position GPSComm::update()"
@@ -63,8 +75,11 @@ void loop() {
 
   // TODO: implement "void RPiComm::postAll(Position, Momentum)"
   pRPi->postAll(pos, mom);
-  // TODO: implement "Goals RPiComm::updateGoals()"
-  goals = RPi->updateGoals();
+
+  if (pRPi->isNewMail()) {
+    char *newMail = pRPi->newMail();
+    parse(newMail, goals);
+  }
 
   // TODO: implement "void CarComm::command(Goals)"
   Car.command(goals);
