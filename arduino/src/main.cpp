@@ -55,7 +55,7 @@ SIGNAL(TIMER0_COMPA_vect) {
   // Interrupt is called once a millisecond,
   // looks for new serial data, and stores it
   char c = pRPi->readChar();
-  //char g = GPS.read();
+  //char g = GPS.read();3
 }
 
 Position pos;
@@ -64,6 +64,7 @@ Goals goals;
 
 void loop() {
   // TODO: test "Position GPSComm::update()"
+  //
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // TODO: !!! Speed and Heading are from GPS !!! Refactor accordingly
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
